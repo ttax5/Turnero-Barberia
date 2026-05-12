@@ -1,0 +1,895 @@
+/* ================================================================
+   BarberBook — Sistema de Turnos para Barbería
+   Estilos principales
+   ================================================================ */
+
+/* ────────────────────────────────────────────
+   1. VARIABLES (Design Tokens)
+   ──────────────────────────────────────────── */
+:root {
+    /* Colores base */
+    --color-bg:              #0a0a0a;
+    --color-surface:         #141414;
+    --color-surface-alt:     #1c1c1c;
+    --color-surface-hover:   #222222;
+    --color-border:          #2a2a2a;
+    --color-border-light:    #333333;
+
+    /* Acento dorado */
+    --color-gold:            #c8a962;
+    --color-gold-light:      #d4b872;
+    --color-gold-dark:       #b8993f;
+    --color-gold-glow:       rgba(200, 169, 98, 0.15);
+    --color-gold-subtle:     rgba(200, 169, 98, 0.08);
+
+    /* Texto */
+    --color-text:            #f0f0f0;
+    --color-text-secondary:  #888888;
+    --color-text-muted:      #555555;
+
+    /* Feedback */
+    --color-success:         #4caf50;
+    --color-error:           #ef5350;
+    --color-warning:         #ff9800;
+    --color-info:            #42a5f5;
+
+    /* Tipografía */
+    --font-heading:          'Playfair Display', Georgia, serif;
+    --font-body:             'Inter', -apple-system, sans-serif;
+
+    /* Espaciado */
+    --space-xs:              4px;
+    --space-sm:              8px;
+    --space-md:              16px;
+    --space-lg:              24px;
+    --space-xl:              32px;
+    --space-2xl:             48px;
+    --space-3xl:             64px;
+
+    /* Bordes */
+    --radius-sm:             6px;
+    --radius-md:             10px;
+    --radius-lg:             16px;
+    --radius-full:           50%;
+
+    /* Transiciones */
+    --transition-fast:       150ms ease;
+    --transition-base:       250ms ease;
+    --transition-slow:       400ms ease;
+
+    /* Contenedor */
+    --max-width:             1100px;
+}
+
+
+/* ────────────────────────────────────────────
+   2. RESET Y BASE
+   ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: inherit;
+}
+
+input {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+
+/* ────────────────────────────────────────────
+   3. HEADER
+   ──────────────────────────────────────────── */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.header-contenido {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-md) var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    transition: opacity var(--transition-fast);
+}
+
+.logo:hover {
+    opacity: 0.8;
+}
+
+.logo-icono {
+    font-size: 1.5rem;
+}
+
+.logo-texto {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    letter-spacing: 0.5px;
+}
+
+
+/* ────────────────────────────────────────────
+   4. INDICADOR DE PASOS
+   ──────────────────────────────────────────── */
+.indicador-pasos {
+    max-width: 500px;
+    margin: var(--space-xl) auto var(--space-lg);
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.paso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    flex-shrink: 0;
+}
+
+.paso-numero {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--color-border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    background: var(--color-surface);
+    transition: all var(--transition-base);
+}
+
+.paso-label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    transition: color var(--transition-base);
+}
+
+.paso-linea {
+    flex: 1;
+    height: 2px;
+    background: var(--color-border);
+    min-width: 40px;
+    margin: 0 var(--space-sm);
+    margin-bottom: 20px;
+    transition: background var(--transition-base);
+}
+
+/* Paso activo */
+.paso.activo .paso-numero {
+    border-color: var(--color-gold);
+    background: var(--color-gold);
+    color: var(--color-bg);
+    box-shadow: 0 0 16px var(--color-gold-glow);
+}
+
+.paso.activo .paso-label {
+    color: var(--color-gold);
+}
+
+/* Paso completado */
+.paso.completado .paso-numero {
+    border-color: var(--color-gold);
+    background: transparent;
+    color: var(--color-gold);
+}
+
+.paso.completado .paso-label {
+    color: var(--color-text-secondary);
+}
+
+.paso-linea.completada {
+    background: var(--color-gold-dark);
+}
+
+
+/* ────────────────────────────────────────────
+   5. LAYOUT PRINCIPAL
+   ──────────────────────────────────────────── */
+.main {
+    flex: 1;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-lg) var(--space-3xl);
+    width: 100%;
+}
+
+
+/* ────────────────────────────────────────────
+   6. SECCIONES
+   ──────────────────────────────────────────── */
+.seccion-paso {
+    animation: fadeIn var(--transition-slow) ease;
+}
+
+.seccion-header {
+    margin-bottom: var(--space-xl);
+}
+
+.seccion-titulo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-xs);
+}
+
+.seccion-subtitulo {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Ocultar secciones */
+.oculto {
+    display: none !important;
+}
+
+
+/* ────────────────────────────────────────────
+   7. GRID DE CARDS
+   ──────────────────────────────────────────── */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-lg);
+}
+
+
+/* ────────────────────────────────────────────
+   8. CARDS DE SERVICIO
+   ──────────────────────────────────────────── */
+.card-servicio {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-servicio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transition: transform var(--transition-base);
+}
+
+.card-servicio:hover {
+    border-color: var(--color-border-light);
+    background: var(--color-surface-hover);
+    transform: translateY(-2px);
+}
+
+.card-servicio:hover::before {
+    transform: scaleX(1);
+}
+
+.card-servicio.activa {
+    border-color: var(--color-gold);
+    background: var(--color-gold-subtle);
+    box-shadow: 0 0 20px var(--color-gold-glow);
+}
+
+.card-servicio.activa::before {
+    transform: scaleX(1);
+}
+
+.card-servicio-nombre {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text);
+}
+
+.card-servicio-descripcion {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: var(--space-md);
+    line-height: 1.5;
+}
+
+.card-servicio-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
+}
+
+.card-servicio-duracion {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.card-servicio-precio {
+    font-weight: 600;
+    color: var(--color-gold);
+    font-size: 1.1rem;
+}
+
+
+/* ────────────────────────────────────────────
+   9. CARDS DE BARBERO
+   ──────────────────────────────────────────── */
+.card-barbero {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl) var(--space-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: center;
+}
+
+.card-barbero:hover {
+    border-color: var(--color-border-light);
+    background: var(--color-surface-hover);
+    transform: translateY(-2px);
+}
+
+.card-barbero.activa {
+    border-color: var(--color-gold);
+    background: var(--color-gold-subtle);
+    box-shadow: 0 0 20px var(--color-gold-glow);
+}
+
+.card-barbero-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-full);
+    margin: 0 auto var(--space-md);
+    overflow: hidden;
+    border: 2px solid var(--color-border-light);
+    background: var(--color-surface-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color var(--transition-base);
+}
+
+.card-barbero.activa .card-barbero-avatar {
+    border-color: var(--color-gold);
+}
+
+.card-barbero-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-barbero-iniciales {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-gold);
+}
+
+.card-barbero-nombre {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+}
+
+.card-barbero-especialidad {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+
+/* ────────────────────────────────────────────
+   10. HORARIOS
+   ──────────────────────────────────────────── */
+.info-seleccion {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+}
+
+.info-chip {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.info-chip strong {
+    color: var(--color-gold);
+}
+
+.grid-horarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--space-md);
+}
+
+.btn-horario {
+    padding: var(--space-md) var(--space-sm);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: center;
+}
+
+.btn-horario:hover:not(:disabled) {
+    border-color: var(--color-gold);
+    background: var(--color-gold-subtle);
+    color: var(--color-gold);
+}
+
+.btn-horario.activo {
+    border-color: var(--color-gold);
+    background: var(--color-gold);
+    color: var(--color-bg);
+    font-weight: 600;
+}
+
+.btn-horario:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+
+/* ────────────────────────────────────────────
+   11. FORMULARIO DE RESERVA
+   ──────────────────────────────────────────── */
+.reserva-contenido {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+}
+
+.resumen-turno {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+}
+
+.resumen-titulo {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    color: var(--color-gold);
+}
+
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.9rem;
+}
+
+.resumen-item:last-child {
+    border-bottom: none;
+}
+
+.resumen-item-label {
+    color: var(--color-text-secondary);
+}
+
+.resumen-item-valor {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.resumen-total {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 2px solid var(--color-gold-dark);
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.resumen-total-precio {
+    color: var(--color-gold);
+}
+
+.formulario-reserva {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.campo-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.campo-input {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-md);
+    color: var(--color-text);
+    font-size: 1rem;
+    transition: border-color var(--transition-fast);
+    outline: none;
+}
+
+.campo-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.campo-input:focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px var(--color-gold-glow);
+}
+
+
+/* ────────────────────────────────────────────
+   12. TURNOS RESERVADOS
+   ──────────────────────────────────────────── */
+.lista-turnos {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.card-turno {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-lg);
+    transition: border-color var(--transition-fast);
+}
+
+.card-turno:hover {
+    border-color: var(--color-border-light);
+}
+
+.card-turno-info {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
+}
+
+.card-turno-detalle {
+    font-size: 0.9rem;
+}
+
+.card-turno-detalle-label {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.card-turno-detalle-valor {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.sin-turnos {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-lg);
+    color: var(--color-text-muted);
+}
+
+.sin-turnos-icono {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    opacity: 0.5;
+}
+
+.sin-turnos-texto {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-sm);
+}
+
+.sin-turnos-subtexto {
+    font-size: 0.85rem;
+}
+
+
+/* ────────────────────────────────────────────
+   13. BOTONES
+   ──────────────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-icono {
+    font-size: 1rem;
+}
+
+/* Primario (dorado sólido) */
+.btn-primario {
+    background: var(--color-gold);
+    color: var(--color-bg);
+    font-weight: 600;
+    border: 1px solid var(--color-gold);
+}
+
+.btn-primario:hover {
+    background: var(--color-gold-light);
+    border-color: var(--color-gold-light);
+    box-shadow: 0 4px 12px var(--color-gold-glow);
+}
+
+/* Outline (borde dorado) */
+.btn-outline {
+    border: 1px solid var(--color-border-light);
+    color: var(--color-text);
+    background: transparent;
+}
+
+.btn-outline:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+    background: var(--color-gold-subtle);
+}
+
+/* Peligro (rojo) */
+.btn-peligro {
+    background: transparent;
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    font-size: 0.8rem;
+    padding: var(--space-sm) var(--space-md);
+}
+
+.btn-peligro:hover {
+    background: var(--color-error);
+    color: white;
+}
+
+/* Grande */
+.btn-grande {
+    padding: var(--space-md) var(--space-xl);
+    font-size: 1rem;
+    border-radius: var(--radius-md);
+    width: 100%;
+    justify-content: center;
+}
+
+/* Volver */
+.btn-volver {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: var(--space-md);
+    padding: var(--space-xs) 0;
+    transition: color var(--transition-fast);
+}
+
+.btn-volver:hover {
+    color: var(--color-gold);
+}
+
+
+/* ────────────────────────────────────────────
+   14. FOOTER
+   ──────────────────────────────────────────── */
+.footer {
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-lg);
+    margin-top: auto;
+}
+
+.footer-contenido {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-texto {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+
+/* ────────────────────────────────────────────
+   15. ANIMACIONES
+   ──────────────────────────────────────────── */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+
+/* ────────────────────────────────────────────
+   16. SWEETALERT2 — DARK THEME OVERRIDE
+   ──────────────────────────────────────────── */
+.swal2-popup {
+    background: var(--color-surface) !important;
+    color: var(--color-text) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-lg) !important;
+}
+
+.swal2-title {
+    color: var(--color-text) !important;
+    font-family: var(--font-heading) !important;
+}
+
+.swal2-html-container {
+    color: var(--color-text-secondary) !important;
+}
+
+.swal2-confirm {
+    background: var(--color-gold) !important;
+    color: var(--color-bg) !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+.swal2-cancel {
+    background: transparent !important;
+    color: var(--color-text-secondary) !important;
+    border: 1px solid var(--color-border-light) !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+
+/* ────────────────────────────────────────────
+   17. RESPONSIVE
+   ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .reserva-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-horarios {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
+    .card-turno {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .seccion-titulo {
+        font-size: 1.4rem;
+    }
+
+    .indicador-pasos {
+        margin: var(--space-md) auto;
+    }
+
+    .paso-label {
+        font-size: 0.6rem;
+    }
+
+    .paso-numero {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-contenido {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .logo-texto {
+        font-size: 1.1rem;
+    }
+
+    .main {
+        padding: var(--space-md) var(--space-md) var(--space-2xl);
+    }
+
+    .paso-linea {
+        min-width: 20px;
+    }
+}

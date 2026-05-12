@@ -1,411 +1,236 @@
-# ROADMAP — Proyecto Final JavaScript CoderHouse
+# 🗺️ ROADMAP — BarberBook
 
-> **Plazo total:** 10 días | **Inicio estimado:** 3 de mayo 2026
-> **Entrega:** 13 de mayo 2026
+> Plan de desarrollo día a día para el proyecto final de JavaScript (CoderHouse).
+> Plazo: **10 días** | Stack: HTML + CSS + JS vanilla + SweetAlert2
 
 ---
 
-## VISIÓN GENERAL
+## Vista General (Diagrama Gantt)
 
 ```
-DÍA 1 ──── Setup y estructura base
-DÍA 2 ──── Fetch + renderizado de productos
-DÍA 3 ──── Estilos CSS
-DÍA 4 ──── Sistema de filtros
-DÍA 5 ──── Carrito (agregar y eliminar)
-DÍA 6 ──── Carrito (cálculos y persistencia)
-DÍA 7 ──── Checkout
-DÍA 8 ──── Integración y pruebas
-DÍA 9 ──── Limpieza de código
-DÍA 10 ─── Revisión final y entrega
+Fundación
+  ├── Día 1:  Setup y estructura base         ████
+  ├── Día 2:  Fetch e inicialización           ████
+  └── Día 3:  Estilos base                     ████
+
+Funcionalidad Core
+  ├── Día 4:  Servicios y Barberos (map)       ████████
+  ├── Día 5:  Horarios (filter + sort)         ████████
+  ├── Día 6:  Formulario y confirmación        ████████
+  └── Día 7:  Mis Turnos y cancelación         ████████
+
+Cierre
+  ├── Día 8:  Integración y testing            ██████
+  ├── Día 9:  Limpieza de código               ██████
+  └── Día 10: Revisión final y entrega         ██████ ← DEADLINE
 ```
 
 ---
 
-## DÍA 1 — Setup y estructura base
+## Día 1 — Setup y Estructura Base
 
-### Objetivo
-Tener el esqueleto completo del proyecto con todos los archivos creados y conectados.
+**Objetivo:** Tener todos los archivos creados y conectados.
 
-### Tareas
+| Tarea | Archivo | Estado |
+|-------|---------|--------|
+| Crear estructura de carpetas (`src/js/`, `src/css/`, `data/`) | — | ⬜ |
+| Armar `index.html` con secciones para cada paso del flujo | `src/index.html` | ⬜ |
+| Agregar CDN de SweetAlert2 en el HTML | `src/index.html` | ⬜ |
+| Crear `servicios.json` con 4-5 servicios | `data/servicios.json` | ⬜ |
+| Crear `barberos.json` con 3 barberos (6-8 horarios c/u) | `data/barberos.json` | ⬜ |
+| Conectar todos los `.js` al HTML (scripts al final del body) | `src/index.html` | ⬜ |
 
-- [ ] **1.1** Limpiar el repositorio actual
-  - Eliminar `js/main.js` (ejercicios viejos)
-  - Eliminar `js/modulo-5.js` (ejercicios viejos)
-  - Decidir si mantener o reemplazar `Efectivo.png`
+**Entregable del día:** `index.html` abierto con Live Server sin errores en consola.
 
-- [ ] **1.2** Crear la estructura de carpetas
-  ```
-  css/styles.css
-  js/app.js
-  js/productos.js
-  js/carrito.js
-  js/filtros.js
-  js/checkout.js
-  data/productos.json
-  img/
-  ```
-
-- [ ] **1.3** Armar el `index.html` base
-  - Estructura semántica: `header`, `main`, `section`, `footer`
-  - Contenedores vacíos con IDs para que JS los llene:
-    - `#catalogo` → donde se renderizan los productos
-    - `#filtros` → controles de filtro
-    - `#carrito` → sidebar o sección del carrito
-    - `#checkout` → formulario de compra
-  - Incluir CDN de SweetAlert2
-  - Conectar todos los archivos `.js` con `defer`
-  - Conectar `css/styles.css`
-
-- [ ] **1.4** Crear `data/productos.json` con 10-15 productos
-  - Mínimo 3 categorías: `ropa`, `electronica`, `accesorios`
-  - Cada producto con: `id`, `nombre`, `categoria`, `precio`, `imagen`, `descripcion`, `stock`
-  - Usar imágenes placeholder por ahora (después se reemplazan)
-
-- [ ] **1.5** Verificar que todo carga sin errores en el navegador
-
-### Conceptos clave del día
-- Estructura de proyecto
-- HTML semántico
-- Cómo conectar múltiples archivos JS
+**Concepto clave:** Estructura de proyecto modular — cada archivo tiene una responsabilidad única.
 
 ---
 
-## DÍA 2 — Fetch + renderizado de productos
+## Día 2 — Fetch e Inicialización
 
-### Objetivo
-Que los productos del JSON aparezcan en pantalla como tarjetas.
+**Objetivo:** Cargar datos desde JSON y tener el estado global funcionando.
 
-### Tareas
+| Tarea | Archivo | Estado |
+|-------|---------|--------|
+| Definir objeto `estado` global con todos los campos | `src/js/app.js` | ⬜ |
+| Implementar `Promise.all()` para fetch doble | `src/js/app.js` | ⬜ |
+| Guardar resultados en `estado.servicios` y `estado.barberos` | `src/js/app.js` | ⬜ |
+| Cargar turnos desde `localStorage` si existen | `src/js/app.js` | ⬜ |
+| Cargar barberos actualizados desde `localStorage` si existen | `src/js/app.js` | ⬜ |
+| Verificar carga con `console.log` temporal | `src/js/app.js` | ⬜ |
 
-- [ ] **2.1** En `app.js`: escuchar `DOMContentLoaded`
-  - Hacer `fetch("data/productos.json")`
-  - Guardar el resultado en una variable
-  - Llamar a `renderizarProductos()`
+**Entregable del día:** Datos cargados correctamente visibles en consola.
 
-- [ ] **2.2** En `productos.js`: crear función `renderizarProductos(lista)`
-  - Recibe un array de productos
-  - Usa `map()` para generar el HTML de cada card
-  - Cada card muestra: imagen, nombre, precio, categoría, botón "Agregar"
-  - Inserta el HTML en `#catalogo`
-
-- [ ] **2.3** Verificar que las cards se muestran correctamente
-
-### Conceptos clave del día
-- `fetch()` y promesas (`.then()`)
-- `map()` para transformar datos en HTML
-- `innerHTML` para inyectar contenido
-
-### Método de array usado: `map()`
+**Concepto clave:** `Promise.all()` — ejecuta múltiples promesas en paralelo y espera a que todas resuelvan.
 
 ---
 
-## DÍA 3 — Estilos CSS
+## Día 3 — Estilos Base
 
-### Objetivo
-Que la app se vea limpia, ordenada y presentable.
+**Objetivo:** Tener la maqueta visual completa con paleta de barbería.
 
-### Tareas
+| Tarea | Archivo | Estado |
+|-------|---------|--------|
+| Definir variables CSS (colores, tipografía, espaciados) | `src/css/styles.css` | ⬜ |
+| Maquetar header con navegación | `src/css/styles.css` | ⬜ |
+| Estilizar cards de servicios (grid o flexbox) | `src/css/styles.css` | ⬜ |
+| Estilizar cards de barberos | `src/css/styles.css` | ⬜ |
+| Estilizar botones de horarios | `src/css/styles.css` | ⬜ |
+| Lógica CSS para mostrar/ocultar secciones (`.oculto`) | `src/css/styles.css` | ⬜ |
+| Responsive básico (mobile-first) | `src/css/styles.css` | ⬜ |
 
-- [ ] **3.1** Definir estilos base en `css/styles.css`
-  - Reset básico (`* { margin: 0; padding: 0; box-sizing: border-box }`)
-  - Variables CSS para colores, fuentes y espaciados
-  - Fuente de Google Fonts (ej: Inter, Roboto)
+**Entregable del día:** Sitio con aspecto visual profesional, secciones visibles en estructura.
 
-- [ ] **3.2** Estilar el header
-  - Logo/nombre de la tienda
-  - Ícono de carrito con contador
-
-- [ ] **3.3** Estilar las cards de productos
-  - Grid o Flexbox para el layout del catálogo
-  - Imagen, nombre, precio, botón de agregar
-  - Hover effects en las cards
-
-- [ ] **3.4** Estilar la zona de filtros
-  - Botones de categoría o select
-  - Selector de ordenamiento
-
-- [ ] **3.5** Estilar el carrito (sidebar o sección)
-  - Lista de items
-  - Botones de eliminar
-  - Total y botón de comprar
-
-- [ ] **3.6** Responsive básico
-  - Que se vea bien en desktop y mobile
-
-### Conceptos clave del día
-- CSS Grid / Flexbox
-- Variables CSS
-- Diseño responsive
+**Paleta sugerida:** Negro `#1a1a1a` · Gris carbón `#2d2d2d` · Dorado `#c8a962` · Blanco humo `#f5f5f5`
 
 ---
 
-## DÍA 4 — Sistema de filtros
+## Día 4 — Paso 1 y 2: Servicios y Barberos
 
-### Objetivo
-Que el usuario pueda filtrar por categoría y ordenar por precio.
+**Objetivo:** El usuario puede elegir un servicio y un barbero.
 
-### Tareas
+| Tarea | Archivo | Método JS | Estado |
+|-------|---------|-----------|--------|
+| Implementar `renderizarServicios()` | `src/js/servicios.js` | `map()` | ⬜ |
+| Evento click → guardar en `estado.servicioSeleccionado` | `src/js/servicios.js` | — | ⬜ |
+| Marcar card activa visualmente | `src/js/servicios.js` | — | ⬜ |
+| Implementar `renderizarBarberos()` | `src/js/barberos.js` | `map()` | ⬜ |
+| Evento click → guardar en `estado.barberoSeleccionado` | `src/js/barberos.js` | — | ⬜ |
+| Transición visual del paso 1 al paso 2 | `src/js/barberos.js` | — | ⬜ |
 
-- [ ] **4.1** En `filtros.js`: crear filtro por categoría
-  - Botones o `select` con las categorías del JSON
-  - Opción "Todos" para mostrar todo
-  - Usar `filter()` sobre el array de productos
-  - Llamar a `renderizarProductos()` con el resultado filtrado
+**Entregable del día:** Click en servicio → aparecen barberos → click en barbero → transición al paso 3.
 
-- [ ] **4.2** En `filtros.js`: crear ordenamiento por precio
-  - `select` con opciones: "Menor a Mayor", "Mayor a Menor"
-  - Usar `sort()` sobre el array
-  - Re-renderizar después de ordenar
-
-- [ ] **4.3** Que filtro + orden funcionen combinados
-  - Primero filtrar, después ordenar, después renderizar
-
-- [ ] **4.4** Probar con distintas combinaciones
-
-### Conceptos clave del día
-- `filter()` — devuelve un array nuevo con los elementos que cumplen la condición
-- `sort()` — ordena el array (modifica el original, cuidado)
-- Composición de operaciones sobre arrays
-
-### Métodos de array usados: `filter()`, `sort()`
+**Concepto clave:** `map()` — transforma cada elemento de un array en un nuevo valor (en este caso, HTML).
 
 ---
 
-## DÍA 5 — Carrito (agregar y eliminar)
+## Día 5 — Paso 3: Horarios
 
-### Objetivo
-Que el usuario pueda agregar productos al carrito y verlos reflejados en pantalla.
+**Objetivo:** Mostrar horarios disponibles del barbero seleccionado.
 
-### Tareas
+| Tarea | Archivo | Método JS | Estado |
+|-------|---------|-----------|--------|
+| Implementar `renderizarHorarios()` | `src/js/horarios.js` | `filter()` + `sort()` + `map()` | ⬜ |
+| Filtrar solo horarios con `disponible === true` | `src/js/horarios.js` | `filter()` | ⬜ |
+| Ordenar horarios cronológicamente | `src/js/horarios.js` | `sort()` | ⬜ |
+| Renderizar botones (activos vs deshabilitados) | `src/js/horarios.js` | `map()` | ⬜ |
+| Manejar caso sin horarios disponibles | `src/js/horarios.js` | SweetAlert2 | ⬜ |
+| Click → guardar en `estado.horarioSeleccionado` | `src/js/horarios.js` | — | ⬜ |
 
-- [ ] **5.1** En `carrito.js`: definir array `carrito = []`
-  - Cada item: `{ id, nombre, precio, cantidad }`
+**Entregable del día:** Lista de horarios filtrada y ordenada, con selección funcional.
 
-- [ ] **5.2** Crear función `agregarAlCarrito(id)`
-  - Usar `find()` para verificar si el producto ya está en el carrito
-  - Si existe: sumar 1 a la cantidad
-  - Si no existe: agregarlo con cantidad 1
-  - Llamar a `renderizarCarrito()` después
-
-- [ ] **5.3** Crear función `renderizarCarrito()`
-  - Mostrar lista de items del carrito en el DOM
-  - Cada item muestra: nombre, precio unitario, cantidad, botón eliminar
-  - Mostrar el total
-
-- [ ] **5.4** Crear función `eliminarDelCarrito(id)`
-  - Remover el item del array
-  - Re-renderizar
-
-- [ ] **5.5** Mostrar contador de items en el ícono del carrito (header)
-
-- [ ] **5.6** Conectar el botón "Agregar" de cada card con `agregarAlCarrito()`
-
-### Conceptos clave del día
-- `find()` — busca un elemento en un array por condición
-- Event delegation (si los botones se generan dinámicamente)
-- Actualizar el DOM en respuesta a cambios de datos
-
-### Método de array usado: `find()`
+**Concepto clave:** `filter()` devuelve un array nuevo con los elementos que cumplen la condición. `sort()` ordena el array in-place.
 
 ---
 
-## DÍA 6 — Carrito (cálculos y persistencia)
+## Día 6 — Paso 4: Formulario y Confirmación
 
-### Objetivo
-Que el total se calcule automáticamente y el carrito sobreviva al recargar la página.
+**Objetivo:** El usuario puede confirmar su turno con todos los datos.
 
-### Tareas
+| Tarea | Archivo | Método JS | Estado |
+|-------|---------|-----------|--------|
+| Armar formulario (nombre + teléfono) en HTML | `src/index.html` | — | ⬜ |
+| Validar campos vacíos | `src/js/reserva.js` | — | ⬜ |
+| Mostrar resumen con SweetAlert2 antes de confirmar | `src/js/reserva.js` | SweetAlert2 | ⬜ |
+| Crear objeto turno completo | `src/js/reserva.js` | — | ⬜ |
+| Buscar barbero y marcar horario como `false` | `src/js/reserva.js` | `find()` | ⬜ |
+| Guardar `estado.turnos` y `estado.barberos` en localStorage | `src/js/reserva.js` | — | ⬜ |
+| Resetear selecciones y volver al paso 1 | `src/js/reserva.js` | — | ⬜ |
 
-- [ ] **6.1** Crear función `calcularTotal()`
-  - Usar `reduce()` para sumar `precio * cantidad` de cada item
-  - Devolver el total
-  - Mostrar el total formateado en el DOM
+**Entregable del día:** Flujo completo funcional: servicio → barbero → horario → confirmar turno.
 
-- [ ] **6.2** Persistir carrito en `localStorage`
-  - En cada modificación del carrito: `localStorage.setItem("carrito", JSON.stringify(carrito))`
-  - Al cargar la app: verificar si hay carrito guardado con `localStorage.getItem("carrito")`
-  - Si hay datos: parsear con `JSON.parse()` y cargar en la variable
-
-- [ ] **6.3** Botón "Vaciar carrito"
-  - Al clickear: mostrar confirmación con **SweetAlert2** (no `confirm()`)
-  - Si el usuario confirma: vaciar el array y limpiar `localStorage`
-  - Re-renderizar
-
-- [ ] **6.4** Probar: agregar items → recargar página → verificar que persisten
-
-### Conceptos clave del día
-- `reduce()` — acumula un valor recorriendo el array
-- `localStorage` — almacenamiento persistente en el navegador
-- `JSON.stringify()` / `JSON.parse()` — serialización de datos
-- Primera integración con SweetAlert2
-
-### Método de array usado: `reduce()`
+**Concepto clave:** `find()` busca y devuelve el **primer** elemento que cumple la condición (a diferencia de `filter()` que devuelve todos).
 
 ---
 
-## DÍA 7 — Checkout
+## Día 7 — Sección "Mis Turnos"
 
-### Objetivo
-Simular el proceso de compra completo con formulario y confirmación.
+**Objetivo:** El usuario puede ver y cancelar sus turnos reservados.
 
-### Tareas
+| Tarea | Archivo | Método JS | Estado |
+|-------|---------|-----------|--------|
+| Implementar `renderizarTurnos()` | `src/js/misTurnos.js` | `map()` | ⬜ |
+| Mostrar mensaje si no hay turnos | `src/js/misTurnos.js` | — | ⬜ |
+| Botón "Cancelar" en cada turno | `src/js/misTurnos.js` | — | ⬜ |
+| Confirmar cancelación con SweetAlert2 | `src/js/misTurnos.js` | SweetAlert2 | ⬜ |
+| Eliminar turno de `estado.turnos` | `src/js/misTurnos.js` | `filter()` | ⬜ |
+| Volver a marcar horario como `disponible: true` | `src/js/misTurnos.js` | `find()` | ⬜ |
+| Persistir cambios en localStorage | `src/js/misTurnos.js` | — | ⬜ |
 
-- [ ] **7.1** En `checkout.js`: crear formulario de checkout
-  - Campos: nombre, email, dirección
-  - Solo frontend, sin backend
-  - Puede ser una sección oculta que se muestra al clickear "Comprar"
+**Entregable del día:** Sección "Mis Turnos" completa con cancelación funcional.
 
-- [ ] **7.2** Validar que los campos no estén vacíos
-  - Si hay campos vacíos: mostrar error con SweetAlert2
-  - No usar `alert()` nativo
-
-- [ ] **7.3** Mostrar resumen de compra con SweetAlert2
-  - Lista de items + cantidades + total
-  - Botones "Confirmar" y "Cancelar"
-
-- [ ] **7.4** Al confirmar la compra:
-  - Vaciar el carrito (variable + localStorage)
-  - Mostrar mensaje de éxito con SweetAlert2
-  - Resetear la vista (ocultar checkout, volver al catálogo)
-
-- [ ] **7.5** Probar el flujo completo
-
-### Conceptos clave del día
-- Validación de formularios desde JS
-- SweetAlert2: `Swal.fire()` con opciones avanzadas
-- Flujo completo de una transacción simulada
+**Concepto clave:** Al cancelar, el ciclo se cierra: el horario vuelve a estar disponible para futuras reservas.
 
 ---
 
-## DÍA 8 — Integración y pruebas
+## Día 8 — Integración y Testing
 
-### Objetivo
-Verificar que todo funciona correctamente de principio a fin.
+**Objetivo:** Todo el flujo funciona de punta a punta sin bugs.
 
-### Tareas
+| Verificación | Resultado | Estado |
+|-------------|-----------|--------|
+| Flujo completo: servicio → barbero → horario → confirmar | — | ⬜ |
+| Persistencia: recargar página y verificar turnos | — | ⬜ |
+| Horarios ocupados no se pueden seleccionar | — | ⬜ |
+| Cancelar turno libera el horario correctamente | — | ⬜ |
+| Reservar mismo horario 2 veces es imposible | — | ⬜ |
+| SweetAlert2 aparece en todos los diálogos | — | ⬜ |
+| Responsive: probar en móvil y desktop | — | ⬜ |
+| Corregir bugs de integración entre módulos | — | ⬜ |
 
-- [ ] **8.1** Probar el flujo completo:
-  1. Abrir la app → ¿se cargan los productos?
-  2. Filtrar por categoría → ¿se muestran los correctos?
-  3. Ordenar por precio → ¿funciona asc y desc?
-  4. Agregar al carrito → ¿aparece el item?
-  5. Agregar el mismo item de nuevo → ¿suma cantidad?
-  6. Eliminar un item → ¿desaparece?
-  7. Recargar la página → ¿persiste el carrito?
-  8. Vaciar carrito → ¿muestra confirmación?
-  9. Comprar → ¿muestra resumen y mensaje de éxito?
-  10. Después de comprar → ¿carrito vacío?
-
-- [ ] **8.2** Probar edge cases:
-  - ¿Qué pasa si el carrito está vacío y se hace click en "Comprar"?
-  - ¿Qué pasa si el JSON no se puede cargar? (error en fetch)
-  - ¿Se ve bien en distintos tamaños de pantalla?
-
-- [ ] **8.3** Corregir los bugs encontrados
-
-- [ ] **8.4** Ajustes de CSS si algo se ve mal
-
-### Conceptos clave del día
-- Testing manual
-- Manejo de errores
-- Edge cases
+**Entregable del día:** App funcional sin bugs conocidos.
 
 ---
 
-## DÍA 9 — Limpieza de código
+## Día 9 — Limpieza de Código
 
-### Objetivo
-Dejar el código listo para corrección: limpio, sin residuos, con comentarios.
+**Objetivo:** Código listo para corrección académica.
 
-### Tareas
+| Tarea | Verificación | Estado |
+|-------|-------------|--------|
+| Eliminar **todos** los `console.log()` | `grep -r "console.log" src/js/` → 0 | ⬜ |
+| Eliminar código comentado y en desuso | Revisión manual | ⬜ |
+| Sin `alert()`, `confirm()`, `prompt()` nativos | `grep -r "alert\|confirm\|prompt" src/js/` → 0 | ⬜ |
+| Comentario breve encima de cada función | Todas documentadas | ⬜ |
+| Nombres descriptivos en variables y funciones | Revisión manual | ⬜ |
+| Consistencia de estilo (indentación, comillas) | Revisión manual | ⬜ |
 
-- [ ] **9.1** Eliminar TODOS los `console.log()`
-  - Buscar en todos los archivos JS
-  - No debe quedar ninguno
-
-- [ ] **9.2** Eliminar código comentado
-  - No deben quedar bloques de código comentado
-  - Solo dejar comentarios descriptivos de funciones
-
-- [ ] **9.3** Verificar que NO haya `alert()`, `prompt()` ni `confirm()` nativos
-  - Todos deben estar reemplazados por SweetAlert2
-
-- [ ] **9.4** Agregar comentarios descriptivos
-  - Cada función debe tener un comentario breve explicando qué hace
-  - Formato: `// Renderiza las cards de productos en el catálogo`
-
-- [ ] **9.5** Revisar nombres de variables y funciones
-  - Que sean descriptivos y en español (coherente con el proyecto)
-  - Que sigan una convención consistente (camelCase)
-
-- [ ] **9.6** Verificar indentación y formato consistente
-
-### Conceptos clave del día
-- Código limpio y mantenible
-- Buenas prácticas de nombrado
-- Preparación para code review
+**Entregable del día:** Código limpio, documentado y sin deuda técnica.
 
 ---
 
-## DÍA 10 — Revisión final y entrega
+## Día 10 — Revisión Final y Entrega
 
-### Objetivo
-Verificar cada punto del checklist, probar en limpio y entregar.
+**Objetivo:** Entrega exitosa en la plataforma de CoderHouse.
 
-### Tareas
+| Tarea | Estado |
+|-------|--------|
+| Leer consignas del entregable ítem por ítem | ⬜ |
+| Verificar checklist completo (ver `instruction.md`) | ⬜ |
+| Probar en navegador limpio (incógnito, sin caché) | ⬜ |
+| ⚠️ Usar **Live Server** (fetch no funciona con `file://`) | ⬜ |
+| Crear README.md con descripción del proyecto | ⬜ |
+| Subir a GitHub | ⬜ |
+| Entregar link del repositorio en CoderHouse | ⬜ |
 
-- [ ] **10.1** Repasar el checklist del `instructions.md` ítem por ítem
-
-- [ ] **10.2** Probar en navegador limpio
-  - Abrir en ventana de incógnito (sin caché ni localStorage previo)
-  - Verificar que el fetch carga correctamente
-  - Probar flujo completo una vez más
-
-- [ ] **10.3** Revisar la consola del navegador
-  - No deben aparecer errores
-  - No deben aparecer warnings relevantes
-
-- [ ] **10.4** Commit final y push a GitHub
-  ```bash
-  git add .
-  git commit -m "Entrega final - Proyecto JavaScript CoderHouse"
-  git push origin main
-  ```
-
-- [ ] **10.5** Verificar que el repositorio en GitHub tiene todos los archivos
-
-- [ ] **10.6** Entregar el link del repositorio en CoderHouse
+**Entregable del día:** Link del repositorio entregado en la plataforma.
 
 ---
 
-## RESUMEN DE MÉTODOS DE ARRAY POR DÍA
+## Resumen de Métodos por Día
 
-| Día | Método | Archivo | Función |
-|-----|--------|---------|---------|
-| 2 | `map()` | `productos.js` | `renderizarProductos()` |
-| 4 | `filter()` | `filtros.js` | Filtrado por categoría |
-| 4 | `sort()` | `filtros.js` | Ordenamiento por precio |
-| 5 | `find()` | `carrito.js` | `agregarAlCarrito()` |
-| 6 | `reduce()` | `carrito.js` | `calcularTotal()` |
-
----
-
-## RESUMEN DE SWEETALERT2 POR DÍA
-
-| Día | Uso | Función |
-|-----|-----|---------|
-| 6 | Confirmar "Vaciar carrito" | `Swal.fire()` con `showCancelButton: true` |
-| 7 | Error de validación | `Swal.fire()` con `icon: "error"` |
-| 7 | Resumen de compra | `Swal.fire()` con HTML personalizado |
-| 7 | Éxito de compra | `Swal.fire()` con `icon: "success"` |
+| Método | Dónde se usa | Día |
+|--------|-------------|-----|
+| `map()` | Renderizar servicios, barberos, horarios, turnos | 4, 5, 7 |
+| `filter()` | Horarios disponibles, eliminar turno cancelado | 5, 7 |
+| `find()` | Obtener barbero/servicio por ID | 6, 7 |
+| `sort()` | Ordenar horarios cronológicamente | 5 |
+| `reduce()` | Calcular precio total (si múltiples servicios) | 6 |
+| `Promise.all()` | Fetch doble de JSON | 2 |
+| `localStorage` | Persistir turnos y estado de barberos | 2, 6, 7 |
+| `SweetAlert2` | Todos los diálogos de la app | 5, 6, 7 |
 
 ---
 
-## NOTAS FINALES
-
-1. **No apurarse.** Cada día tiene un objetivo claro. Si un día lleva más tiempo, está bien ajustar.
-2. **Probar después de cada cambio.** No acumular código sin verificar que funciona.
-3. **Commitear seguido.** Al menos un commit por día con un mensaje descriptivo.
-4. **Entender antes de avanzar.** Si un concepto no queda claro, detenerse y preguntar.
-5. **El CSS no es lo principal.** Que se vea limpio alcanza. El foco está en el JavaScript.
+> **NOTA:** Este roadmap asume dedicación de 2-3 horas por día. Si un día se
+> complica, el Día 8 (testing) absorbe el atraso. El Día 9 y 10 son innegociables.

@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "nombre": "Rodrigo Méndez",
+    "especialidad": "Cortes modernos",
+    "foto": "img/barbero1.jpg",
+    "horarios": [
+      { "hora": "09:00", "disponible": true },
+      { "hora": "10:00", "disponible": true },
+      { "hora": "11:00", "disponible": false },
+      { "hora": "12:00", "disponible": true },
+      { "hora": "14:00", "disponible": true },
+      { "hora": "15:00", "disponible": true },
+      { "hora": "16:00", "disponible": false }
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "Lucas Ferreyra",
+    "especialidad": "Barba y perfilado",
+    "foto": "img/barbero2.jpg",
+    "horarios": [
+      { "hora": "09:00", "disponible": false },
+      { "hora": "10:30", "disponible": true },
+      { "hora": "12:00", "disponible": true },
+      { "hora": "13:30", "disponible": true },
+      { "hora": "15:00", "disponible": true },
+      { "hora": "16:30", "disponible": false },
+      { "hora": "17:00", "disponible": true }
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Camila Torres",
+    "especialidad": "Coloración y tratamientos",
+    "foto": "img/barbero3.jpg",
+    "horarios": [
+      { "hora": "09:00", "disponible": true },
+      { "hora": "10:00", "disponible": false },
+      { "hora": "11:00", "disponible": true },
+      { "hora": "12:00", "disponible": false },
+      { "hora": "14:00", "disponible": true },
+      { "hora": "15:30", "disponible": true },
+      { "hora": "16:00", "disponible": true },
+      { "hora": "17:00", "disponible": true }
+    ]
+  }
+]
