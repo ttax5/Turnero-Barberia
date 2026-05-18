@@ -4,34 +4,34 @@
     "nombre": "Corte de cabello",
     "descripcion": "Corte clásico o moderno a elección del cliente.",
     "duracion": 30,
-    "precio": 3500
+    "precio": 12000
   },
   {
     "id": 2,
     "nombre": "Arreglo de barba",
     "descripcion": "Perfilado, definición y acondicionamiento de barba.",
     "duracion": 20,
-    "precio": 2000
+    "precio": 8000
   },
   {
     "id": 3,
     "nombre": "Combo corte + barba",
     "descripcion": "Corte completo más arreglo de barba con toalla caliente.",
     "duracion": 50,
-    "precio": 5000
+    "precio": 18000
   },
   {
     "id": 4,
     "nombre": "Coloración",
     "descripcion": "Coloración completa, mechas o reflejos a elección.",
     "duracion": 60,
-    "precio": 8000
+    "precio": 60000
   },
   {
     "id": 5,
     "nombre": "Tratamiento capilar",
     "descripcion": "Hidratación profunda y masaje capilar revitalizante.",
     "duracion": 40,
-    "precio": 4500
+    "precio": 30000
   }
 ]
