@@ -40,53 +40,50 @@ function generarIdTurno() {
 }
 
 /* Configura el evento submit del formulario */
-document.addEventListener("DOMContentLoaded", () => {
-  const formulario = document.getElementById("formulario-reserva");
+const formulario = document.getElementById("formulario-reserva");
 
-  formulario.addEventListener("submit", (e) => {
-    e.preventDefault();
+formulario.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    const inputNombre = document.getElementById("input-nombre");
-    const inputTelefono = document.getElementById("input-telefono");
-    const nombre = inputNombre.value.trim();
-    const telefono = inputTelefono.value.trim();
+  const inputNombre = document.getElementById("input-nombre");
+  const inputTelefono = document.getElementById("input-telefono");
+  const nombre = inputNombre.value.trim();
+  const telefono = inputTelefono.value.trim();
 
-    /* Validar campos vacíos */
-    if (!nombre || !telefono) {
-      Swal.fire({
-        icon: "error",
-        title: "Campos incompletos",
-        text: "Por favor completá tu nombre y teléfono para confirmar el turno.",
-        confirmButtonText: "Entendido"
-      });
-      return;
-    }
-
-    const precioTotal = [estado.servicioSeleccionado].reduce((acc, s) => acc + s.precio, 0);
-
-    /* Resumen de confirmación con SweetAlert2 */
+  /* Validar campos vacíos */
+  if (!nombre || !telefono) {
     Swal.fire({
-      icon: "question",
-      title: "¿Confirmás tu turno?",
-      html: `
-        <div style="text-align: left; font-size: 0.95rem; line-height: 1.8;">
-          <strong>Servicio:</strong> ${estado.servicioSeleccionado.nombre}<br>
-          <strong>Barbero:</strong> ${estado.barberoSeleccionado.nombre}<br>
-          <strong>Horario:</strong> ${estado.horarioSeleccionado} hs<br>
-          <strong>Cliente:</strong> ${nombre}<br>
-          <strong>Teléfono:</strong> ${telefono}<br>
-          <strong>Total:</strong> $${precioTotal.toLocaleString("es-AR")}
-        </div>`,
-      showCancelButton: true,
-      confirmButtonText: "Sí, confirmar",
-      cancelButtonText: "Cancelar"
-    }).then(resultado => {
-      if (resultado.isConfirmed) {
-        confirmarTurno(nombre, telefono, precioTotal);
-        inputNombre.value = "";
-        inputTelefono.value = "";
-      }
+      icon: "error",
+      title: "Campos incompletos",
+      text: "Por favor completá tu nombre y teléfono para confirmar el turno.",
+      confirmButtonText: "Entendido"
     });
+    return;
+  }
+
+  const precioTotal = [estado.servicioSeleccionado].reduce((acc, s) => acc + s.precio, 0);
+
+  /* Resumen de confirmación con SweetAlert2 */
+  Swal.fire({
+    icon: "question",
+    title: "¿Confirmás tu turno?",
+    html: `
+      <div style="text-align: left; font-size: 0.95rem; line-height: 1.8;">
+        <strong>Servicio:</strong> ${estado.servicioSeleccionado.nombre}<br>
+        <strong>Barbero:</strong> ${estado.barberoSeleccionado.nombre}<br>
+        <strong>Horario:</strong> ${estado.horarioSeleccionado} hs<br>
+        <strong>Cliente:</strong> ${nombre}<br>
+        <strong>Teléfono:</strong> ${telefono}<br>
+        <strong>Total:</strong> $${precioTotal.toLocaleString("es-AR")}
+      </div>`,
+    showCancelButton: true,
+    confirmButtonText: "Sí, confirmar",
+    cancelButtonText: "Cancelar"
+  }).then(resultado => {
+    if (resultado.isConfirmed) {
+      confirmarTurno(nombre, telefono, precioTotal);
+      formulario.reset();
+    }
   });
 });
 

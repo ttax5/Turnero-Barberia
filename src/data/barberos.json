@@ -7,11 +7,9 @@
     "horarios": [
       { "hora": "09:00", "disponible": true },
       { "hora": "10:00", "disponible": true },
-      { "hora": "11:00", "disponible": false },
       { "hora": "12:00", "disponible": true },
       { "hora": "14:00", "disponible": true },
-      { "hora": "15:00", "disponible": true },
-      { "hora": "16:00", "disponible": false }
+      { "hora": "15:00", "disponible": true }
     ]
   },
   {
