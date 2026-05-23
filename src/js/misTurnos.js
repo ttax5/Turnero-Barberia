@@ -4,7 +4,6 @@ function renderizarTurnos() {
   if (estado.turnos.length === 0) {
     contenedor.innerHTML = `
       <div class="sin-turnos">
-        <div class="sin-turnos-icono">📋</div>
         <div class="sin-turnos-texto">No tenés turnos reservados aún.</div>
         <div class="sin-turnos-subtexto">Reservá tu primer turno desde el inicio.</div>
       </div>`;
