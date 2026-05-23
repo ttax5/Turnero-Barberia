@@ -1,13 +1,6 @@
-/* ================================================================
-   reserva.js — Formulario de confirmación y persistencia
-   Responsabilidad: confirmarTurno() con find(), reduce(), localStorage
-   ================================================================ */
-
-/* Muestra el resumen del turno en la sección de confirmación */
 function mostrarResumenTurno() {
   const contenedor = document.getElementById("resumen-turno");
 
-  /* reduce() — calcula precio total (permite sumar múltiples servicios a futuro) */
   const precioTotal = [estado.servicioSeleccionado].reduce((acc, s) => acc + s.precio, 0);
 
   contenedor.innerHTML = `
@@ -34,12 +27,10 @@ function mostrarResumenTurno() {
     </div>`;
 }
 
-/* Genera un ID único para cada turno */
 function generarIdTurno() {
   return Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
 }
 
-/* Configura el evento submit del formulario */
 const formulario = document.getElementById("formulario-reserva");
 
 formulario.addEventListener("submit", (e) => {
@@ -50,7 +41,6 @@ formulario.addEventListener("submit", (e) => {
   const nombre = inputNombre.value.trim();
   const telefono = inputTelefono.value.trim();
 
-  /* Validar campos vacíos */
   if (!nombre || !telefono) {
     Swal.fire({
       icon: "error",
@@ -63,7 +53,6 @@ formulario.addEventListener("submit", (e) => {
 
   const precioTotal = [estado.servicioSeleccionado].reduce((acc, s) => acc + s.precio, 0);
 
-  /* Resumen de confirmación con SweetAlert2 */
   Swal.fire({
     icon: "question",
     title: "¿Confirmás tu turno?",
@@ -87,9 +76,7 @@ formulario.addEventListener("submit", (e) => {
   });
 });
 
-/* Crea el turno, marca horario como ocupado y persiste en localStorage */
 function confirmarTurno(nombre, telefono, precioTotal) {
-  /* Crear objeto turno */
   const nuevoTurno = {
     id: generarIdTurno(),
     servicio: estado.servicioSeleccionado.nombre,
@@ -104,7 +91,6 @@ function confirmarTurno(nombre, telefono, precioTotal) {
 
   estado.turnos.push(nuevoTurno);
 
-  /* find() — buscar barbero y marcar horario como no disponible */
   const barbero = estado.barberos.find(b => b.id === estado.barberoSeleccionado.id);
   const horario = barbero.horarios.find(h => h.hora === estado.horarioSeleccionado);
   horario.disponible = false;
@@ -118,7 +104,6 @@ function confirmarTurno(nombre, telefono, precioTotal) {
     confirmButtonText: "Genial"
   });
 
-  /* Resetear y volver al inicio */
   estado.servicioSeleccionado = null;
   estado.barberoSeleccionado = null;
   estado.horarioSeleccionado = null;

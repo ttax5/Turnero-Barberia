@@ -1,13 +1,6 @@
-/* ================================================================
-   misTurnos.js — Lista de turnos reservados y cancelación
-   Responsabilidad: renderizarTurnos() con map(), cancelarTurno() con filter(), find()
-   ================================================================ */
-
-/* Renderiza la lista de turnos reservados */
 function renderizarTurnos() {
   const contenedor = document.getElementById("contenedor-turnos");
 
-  /* Si no hay turnos, mostrar mensaje */
   if (estado.turnos.length === 0) {
     contenedor.innerHTML = `
       <div class="sin-turnos">
@@ -18,7 +11,6 @@ function renderizarTurnos() {
     return;
   }
 
-  /* map() — cada turno se convierte en una card HTML */
   contenedor.innerHTML = estado.turnos.map(turno => `
     <div class="card-turno" data-id="${turno.id}">
       <div class="card-turno-info">
@@ -47,13 +39,11 @@ function renderizarTurnos() {
     </div>`
   ).join("");
 
-  /* Click en cada botón cancelar */
   contenedor.querySelectorAll(".btn-cancelar-turno").forEach(boton => {
     boton.addEventListener("click", () => cancelarTurno(boton.dataset.id));
   });
 }
 
-/* Cancela un turno: pide confirmación, libera el horario y actualiza localStorage */
 function cancelarTurno(idTurno) {
   const turno = estado.turnos.find(t => t.id === idTurno);
   if (!turno) return;
@@ -72,10 +62,8 @@ function cancelarTurno(idTurno) {
     confirmButtonColor: "#ef5350"
   }).then(resultado => {
     if (resultado.isConfirmed) {
-      /* filter() — eliminar el turno cancelado */
       estado.turnos = estado.turnos.filter(t => t.id !== idTurno);
 
-      /* find() — restaurar disponibilidad del horario */
       const barbero = estado.barberos.find(b => b.id === turno.barberoId);
       if (barbero) {
         const horario = barbero.horarios.find(h => h.hora === turno.horario);

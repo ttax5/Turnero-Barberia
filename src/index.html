@@ -1,35 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BarberBook — Reservá tu turno</title>
-    <meta name="description" content="Sistema de reserva de turnos para barbería. Elegí tu servicio, barbero y horario en segundos.">
-
-    <!-- Google Fonts -->
+    <meta name="description"
+        content="Sistema de reserva de turnos para barbería. Elegí tu servicio, barbero y horario en segundos.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Estilos -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-
-    <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- Scripts JS con defer: se descargan en paralelo, se ejecutan en orden después del DOM -->
     <script src="js/app.js" defer></script>
     <script src="js/servicios.js" defer></script>
     <script src="js/barberos.js" defer></script>
     <script src="js/horarios.js" defer></script>
     <script src="js/reserva.js" defer></script>
     <script src="js/misTurnos.js" defer></script>
-
-
 </head>
+
 <body>
 
-    <!-- ============ HEADER ============ -->
     <header class="header">
         <div class="header-contenido">
             <a href="#" class="logo" id="logo-inicio">
@@ -44,7 +38,6 @@
         </div>
     </header>
 
-    <!-- ============ INDICADOR DE PASOS ============ -->
     <div class="indicador-pasos" id="indicador-pasos">
         <div class="paso activo" data-paso="1">
             <div class="paso-numero">1</div>
@@ -67,21 +60,17 @@
         </div>
     </div>
 
-    <!-- ============ CONTENIDO PRINCIPAL ============ -->
     <main class="main">
 
-        <!-- PASO 1: Servicios -->
         <section class="seccion-paso" id="seccion-servicios">
             <div class="seccion-header">
                 <h2 class="seccion-titulo">Elegí tu servicio</h2>
                 <p class="seccion-subtitulo">Seleccioná el servicio que necesitás para comenzar.</p>
             </div>
             <div class="grid-cards" id="contenedor-servicios">
-                <!-- JS genera las cards con map() -->
             </div>
         </section>
 
-        <!-- PASO 2: Barberos -->
         <section class="seccion-paso oculto" id="seccion-barberos">
             <div class="seccion-header">
                 <button class="btn-volver" id="btn-volver-servicios">← Volver a servicios</button>
@@ -89,11 +78,9 @@
                 <p class="seccion-subtitulo">Conocé a nuestro equipo y elegí con quién querés atenderte.</p>
             </div>
             <div class="grid-cards" id="contenedor-barberos">
-                <!-- JS genera las cards con map() -->
             </div>
         </section>
 
-        <!-- PASO 3: Horarios -->
         <section class="seccion-paso oculto" id="seccion-horarios">
             <div class="seccion-header">
                 <button class="btn-volver" id="btn-volver-barberos">← Volver a barberos</button>
@@ -101,14 +88,11 @@
                 <p class="seccion-subtitulo">Horarios disponibles para el barbero seleccionado.</p>
             </div>
             <div class="info-seleccion" id="info-seleccion">
-                <!-- JS muestra qué servicio y barbero se eligieron -->
             </div>
             <div class="grid-horarios" id="contenedor-horarios">
-                <!-- JS genera los botones de horarios con map() -->
             </div>
         </section>
 
-        <!-- PASO 4: Confirmación -->
         <section class="seccion-paso oculto" id="seccion-reserva">
             <div class="seccion-header">
                 <button class="btn-volver" id="btn-volver-horarios">← Volver a horarios</button>
@@ -117,16 +101,17 @@
             </div>
             <div class="reserva-contenido">
                 <div class="resumen-turno" id="resumen-turno">
-                    <!-- JS muestra el resumen del turno seleccionado -->
                 </div>
                 <form class="formulario-reserva" id="formulario-reserva">
                     <div class="campo">
                         <label for="input-nombre" class="campo-label">Nombre completo</label>
-                        <input type="text" id="input-nombre" class="campo-input" placeholder="Ej: Santiago Pérez" autocomplete="name">
+                        <input type="text" id="input-nombre" class="campo-input" placeholder="Ej: Santiago Pérez"
+                            autocomplete="name">
                     </div>
                     <div class="campo">
                         <label for="input-telefono" class="campo-label">Teléfono</label>
-                        <input type="tel" id="input-telefono" class="campo-input" placeholder="Ej: 11 2345-6789" autocomplete="tel">
+                        <input type="tel" id="input-telefono" class="campo-input" placeholder="Ej: 11 2345-6789"
+                            autocomplete="tel">
                     </div>
                     <button type="submit" class="btn btn-primario btn-grande" id="btn-confirmar">
                         Confirmar turno
@@ -135,7 +120,6 @@
             </div>
         </section>
 
-        <!-- MIS TURNOS -->
         <section class="seccion-paso oculto" id="seccion-turnos">
             <div class="seccion-header">
                 <button class="btn-volver" id="btn-volver-inicio">← Volver al inicio</button>
@@ -143,13 +127,10 @@
                 <p class="seccion-subtitulo">Acá podés ver y administrar tus turnos reservados.</p>
             </div>
             <div class="lista-turnos" id="contenedor-turnos">
-                <!-- JS genera las cards de turnos con map() -->
             </div>
         </section>
 
     </main>
-
-    <!-- ============ FOOTER ============ -->
     <footer class="footer">
         <div class="footer-contenido">
             <p class="footer-texto">
@@ -159,4 +140,5 @@
     </footer>
 
 </body>
+
 </html>

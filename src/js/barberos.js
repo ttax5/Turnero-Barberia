@@ -1,14 +1,7 @@
-/* ================================================================
-   barberos.js — Renderizado y selección de barberos
-   Responsabilidad: renderizarBarberos() con map()
-   ================================================================ */
-
-/* Extrae las iniciales del nombre para usar como avatar */
 function obtenerIniciales(nombre) {
   return nombre.split(" ").map(p => p.charAt(0)).join("").toUpperCase();
 }
 
-/* Genera las cards de barberos usando map() */
 function renderizarBarberos() {
   const contenedor = document.getElementById("contenedor-barberos");
 
@@ -30,13 +23,11 @@ function renderizarBarberos() {
       </div>`;
   }).join("");
 
-  /* Click en cada card → seleccionar barbero */
   contenedor.querySelectorAll(".card-barbero").forEach(card => {
     card.addEventListener("click", () => seleccionarBarbero(parseInt(card.dataset.id)));
   });
 }
 
-/* Guarda el barbero elegido y avanza al paso 3 */
 function seleccionarBarbero(idBarbero) {
   estado.barberoSeleccionado = estado.barberos.find(b => b.id === idBarbero);
   estado.horarioSeleccionado = null;
